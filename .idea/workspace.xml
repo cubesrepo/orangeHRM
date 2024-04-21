@@ -4,20 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6d21dea6-5ac7-4fa3-8db1-853a3187b253" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/img_6.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/img_7.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/img_8.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/img_9.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/img.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/img_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/img_2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/img_3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/img_4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/pim_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/pim_page.py" afterDir="false" />
-    </list>
+    <list default="true" id="6d21dea6-5ac7-4fa3-8db1-853a3187b253" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

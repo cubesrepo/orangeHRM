@@ -1,6 +1,6 @@
 **Hello**🖐 **Automated Testing for orangeHRM Demo Website with Selenium (Pytest, POM, HTML Reports, Jenkins Pipeline)**
 
-This project performs automation testing for the demo website OrangeHRM using Selenium, pytest, and the Page Object Model (POM) pattern. It includes an HTML report and a Jenkinsfile for Continuous Integration and Continuous Deployment (CI/CD).
+This project tests various functionalities of the OrangeHRM demo website, such as valid and invalid login attempts, creating recruitment, adding multiple employees, modifying existing records, searching for added employees, and deleting all records.
 ___________________________________________
 
 🎯 **Pre-requisites:**
