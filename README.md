@@ -23,18 +23,7 @@ Run commands:
     
 
 **To run this on jenkins**
-1. Add item name, click Pipeline and click OK
-![img_6.png](img_6.png)
-2. Scroll down and navigate to Pipeline then select "pipeline script from SCM"
-![img_7.png](img_7.png)
-3. Select Git
 
-   ![img_8.png](img_8.png)
-4. Paste the URL and click Apply and Save
-   ![img_5.png](img_5.png)
-5. Click build now
-   
-   ![img_9.png](img_9.png)
 
 
 
