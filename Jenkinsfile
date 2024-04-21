@@ -8,7 +8,7 @@ pipeline{
         }
         stage("Install dependencies and setup"){
             steps{
-                bat 'python venv orangeVenv'
+                bat 'python -m venv orangeVenv'
                 bat 'orangeVenv\\Scripts\\activate && pip install -r requirements.txt'
             }
         }

@@ -28,9 +28,9 @@ Run commands:
 2. Scroll down and navigate to Pipeline then select "pipeline script from SCM"
    ![img_2.png](img_2.png)
 3. Select Git
-   ![img_3.png](img_3.png)
-4. Paste the URL and click Apply and Save
    ![img_4.png](img_4.png)
+4. Paste the URL and click Apply and Save
+   ![img_5.png](img_5.png)
 5. Click build now
    ![img_5.png](img_5.png)
 
