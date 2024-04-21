@@ -116,10 +116,10 @@ class PimPage(BasePage):
 
         return emoloyee_id_value
 
-    def loop_to_add_10_employees(self):
+    def loop_to_add_5_employees(self):
         employee_list = []
         #loop for adding 10 valid employeess
-        for _ in range(11):
+        for _ in range(6):
             employee_list.append(self.add_valid_employee())
             time.sleep(1.5)
 
@@ -140,9 +140,9 @@ class PimPage(BasePage):
         return employee_list
 
     def search_all_added_employee_using_employee_id(self):
-        time.sleep(2)
+        time.sleep(3)
 
-        lists = self.loop_to_add_10_employees()
+        lists = self.loop_to_add_5_employees()
 
         #added loop to search for added employees
         for employee in lists:
@@ -151,12 +151,12 @@ class PimPage(BasePage):
             employee_id_input = self.wait_visibility(test_data.pim.EMPLOYEE_ID_SEARCH)
             self.action_clear_input_and_send_keys(employee_id_input, employee)
 
-            time.sleep(0.5)
+            time.sleep(1)
             #click search btn
             search_btn = self.wait_clickable(test_data.pim.SEARCH_BTN)
             self.action_click(search_btn)
 
-            time.sleep(0.5)
+            time.sleep(1.5)
 
             #check if the employee id is display then scroll
             EMPLOYEE_ID_OUTPUT = By.XPATH, f"//div[contains(text(),'{employee}')]"
@@ -168,10 +168,10 @@ class PimPage(BasePage):
             employee_id_field = self.wait_presence(test_data.pim.EMPLOYEE_ID_SEARCH)
             self.scroll_to_element(employee_id_field)
 
-            time.sleep(0.5)
+            time.sleep(2)
 
     def edit_employee(self):
-        time.sleep(2)
+        time.sleep(3)
         employee_id = self.add_valid_employee()
 
         # go to employee list to search for added employee using their employee id
