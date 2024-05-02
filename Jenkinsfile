@@ -14,7 +14,7 @@ pipeline{
         }
         stage("Run tests"){
             steps{
-                bat 'orangeVenv\\Scripts\\activate && pytest -v --html=report.html'
+                bat 'orangeVenv\\Scripts\\activate && pytest -v --html=report.html --headless'
             }
         }
     }
