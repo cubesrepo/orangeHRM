@@ -1,40 +1,37 @@
 import pytest
 
 from pages.login_page import LoginPage
-from tests.base_test import BaseTest
-
-@pytest.mark.order(1)
-class TestLogin(BaseTest):
-
-    def test_login_form_without_username(self, driver):
-        loginPage = LoginPage(driver)
-        loginPage.verify_login_without_username()
 
 
-    def test_login_form_without_password(self, driver):
-        loginPage = LoginPage(driver)
-        loginPage.verify_login_without_password()
+@pytest.mark.login
+class TestLogin:
+    @pytest.fixture
+    def login_page(self, driver, delay):
+        return LoginPage(driver, delay)
 
+    def test_login_with_valid_credentials(self,login_page):
+        current_url = login_page.verify_login_with_valid_credentials()
 
-    def test_login_form_without_username_and_password(self, driver):
-        loginPage = LoginPage(driver)
-        loginPage.verify_login_without_username_and_password()
+        expected_url = "https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index"
 
+        assert current_url == expected_url, \
+            f"Expected url to be {expected_url}, but got {current_url} instead."
 
-    def test_login_form_with_wrong_username(self, driver):
-        loginPage = LoginPage(driver)
-        loginPage.verify_login_with_wrong_username()
+    def test_login_with_invalid_credentials(self, login_page):
+        current_result_invalid_credential_error = login_page.verify_login_with_invalid_credentials()
 
+        expected_result_invalid_credential_error = "Invalid credentials"
 
-    def test_login_form_with_wrong_password(self, driver):
-        loginPage = LoginPage(driver)
-        loginPage.verify_login_with_wrong_password()
+        assert current_result_invalid_credential_error == expected_result_invalid_credential_error, \
+            f"Expected url to be {expected_result_invalid_credential_error}, but got {current_result_invalid_credential_error} instead."
 
+    def test_login_without_username_and_password(self, login_page):
+        current_result_username_required_error, current_result_password_required_error = login_page.verify_login_without_username_and_password()
+        expected_result_username_required_error = "Required"
+        expected_result_password_required_error = "Required"
 
-    def test_login_form_with_wrong_username_and_password(self, driver):
-        loginPage = LoginPage(driver)
-        loginPage.verify_login_with_wrong_username_and_password()
+        assert current_result_username_required_error == expected_result_username_required_error, \
+            f"Expected url to be {expected_result_username_required_error}, but got {current_result_username_required_error} instead."
 
-    def test_login_form_with_valid_credentials(self, driver):
-        loginPage = LoginPage(driver)
-        loginPage.verify_login_with_valid_credentials()
+        assert current_result_password_required_error == expected_result_password_required_error, \
+            f"Expected url to be {expected_result_password_required_error}, but got {current_result_password_required_error} instead."

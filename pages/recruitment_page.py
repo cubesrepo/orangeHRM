@@ -1,100 +1,51 @@
-import random
-import string
-import time
 
 from faker import Faker
-from selenium.webdriver.common.by import By
 
-import test_data
 from pages.base_page import BasePage
+from utilities import test_data
 
 
 class RecruitmentPage(BasePage):
-    def go_to_recruiment_page(self):
-        time.sleep(2)
+    def click_recruitment_menu(self):
+        self.wait_clickable(test_data.recruitment.RECRUITMENT_MENU).click()
 
-        #click recruitment menu
-        recruitment_menu = self.wait_clickable(test_data.recruitment.RECRUITMENT_MENU)
-        self.action_click(recruitment_menu)
-
-        time.sleep(1)
-
-        assert self.url_is("https://opensource-demo.orangehrmlive.com/web/index.php/recruitment/viewCandidates")
-
-    def add_valid_candidates(self):
-        time.sleep(2)
-
-        #click add btn
+    def click_add_candidate_btn(self):
         self.wait_clickable(test_data.recruitment.ADD_BTN).click()
+    def add_candidate_info(self, first_name, middle_name, last_name, email, contact):
+        candidate_data = {
+            test_data.recruitment.FIRSTNAME: first_name,
+            test_data.recruitment.MIDDLE_NAME: middle_name,
+            test_data.recruitment.LASTNAME: last_name,
+            test_data.recruitment.EMAIL: email,
+            test_data.recruitment.CONTACT_NO: contact
+        }
+        values = []
+        for locator, value in candidate_data.items():
+            self.type(locator, value)
+            element = self.wait_clickable(locator).get_attribute("value")
+            values.append(element)
 
-        time.sleep(2)
+        return values
+    def verify_candidate_info(self):
+        locators = ["FIRSTNAME_PROFILE", "MIDDLENAME_PROFILE", "LASTNAME_PROFILE",
+                     "EMAIL_PROFILE", "CONTACT_NO_PROFILE"
+                    ]
+        candidate_values = []
+        for locator in locators:
+            element = getattr(test_data.recruitment, locator)
+            text_value = self.wait_clickable(element).get_attribute("value")
+            candidate_values.append(text_value)
 
-        self.url_is("https://opensource-demo.orangehrmlive.com/web/index.php/recruitment/addCandidate")
+        return candidate_values
 
-        fake = Faker()
-        #input firstname
-        firstname_value = fake.first_name()
-        self.send_keys(test_data.recruitment.FIRSTNAME, firstname_value)
+    def verify_add_valid_candidate(self):
+        self.click_recruitment_menu()
+        self.click_add_candidate_btn()
+        fake =Faker()
+        expected_result_values = self.add_candidate_info(fake.first_name(), fake.last_name(), fake.last_name(), fake.email(), "45123")
 
-        time.sleep(0.5)
-        # input middlename
-        middlename_value = ''.join(random.choices(string.ascii_lowercase, k=5))
-        self.send_keys(test_data.recruitment.MIDDLENAME, middlename_value)
+        self.action_click(test_data.recruitment.SAVE)
+        current_result_values = self.verify_candidate_info()
 
-        time.sleep(0.5)
-        # input lastname
-        lastname_value = fake.last_name()
-        self.send_keys(test_data.recruitment.LASTNAME, lastname_value)
-
-        time.sleep(0.5)
-
-        #click vacancy
-        vacancy = self.wait_clickable(test_data.recruitment.VACANCY)
-        vacancy.click()
-
-        time.sleep(0.5)
-        #lists of vacancy names
-        vacancy_names = ["Sales Representative", "Senior QA Lead", "Senior Support Specialist", "Software Engineer", "Payroll Administrator"]
-
-        #pick a random vacancy from the vacancy_names
-        random_vacancy = random.choice(vacancy_names)
-
-        #eleement of vacancy
-        vacancy_item_element = By.XPATH, f"//div[@role='option']/span[text()='{random_vacancy}']"
-
-        #click the vacancy item
-        vacancy_item = self.wait_clickable(vacancy_item_element)
-        self.action_click(vacancy_item)
-
-        time.sleep(0.5)
-
-        #input email
-        email_value = f"{firstname_value}@gmail.com"
-        self.send_keys(test_data.recruitment.EMAIL, email_value)
-
-        time.sleep(0.5)
-
-        # input contact number
-        contac_no_value = fake.numerify("###########")
-        self.send_keys(test_data.recruitment.CONTACT_NO, contac_no_value)
-
-        time.sleep(0.5)
-        # scroll down
-        self.scroll_by_amount(0,150)
-
-        time.sleep(0.5)
-        #click save button
-        self.wait_clickable(test_data.recruitment.SAVE).click()
-
-        time.sleep(2)
-
-        # assertion of inputted values
-        assert self.get_value(test_data.recruitment.FIRSTNAME_PROFILE) == firstname_value
-        assert self.get_value(test_data.recruitment.MIDDLENAME_PROFILE) == middlename_value
-        assert self.get_value(test_data.recruitment.LASTNAME_PROFILE) == lastname_value
-        assert self.get_text(test_data.recruitment.VACANCY_PROFILE) == random_vacancy
-        assert self.get_value(test_data.recruitment.EMAIL_PROFILE) == email_value
-        assert self.get_value(test_data.recruitment.CONTACT_NO_PROFILE) == contac_no_value
-
-        self.wait_clickable(test_data.recruitment.CANDIDATES_BTN).click()
+        return current_result_values, expected_result_values
 

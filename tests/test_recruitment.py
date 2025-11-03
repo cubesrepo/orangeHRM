@@ -1,13 +1,17 @@
 import pytest
 
 from pages.recruitment_page import RecruitmentPage
-from tests.base_test import BaseTest
-
-@pytest.mark.order(3)
-class Testrecruitment(BaseTest):
 
 
-    def test_valid_candidates(self, driver):
-        recruitmentpage = RecruitmentPage(driver)
-        recruitmentpage.go_to_recruiment_page()
-        recruitmentpage.add_valid_candidates()
+@pytest.mark.recruitment
+class TestRecruitment:
+    @pytest.fixture
+    def recruitment_page(self, login_driver, delay):
+        return RecruitmentPage(login_driver, delay)
+
+    def test_added_candidate_info(self, recruitment_page):
+        current_result_values, expected_result_values = recruitment_page.verify_add_valid_candidate()
+
+        for current_result_value, expected_result_value in zip(current_result_values, expected_result_values):
+            assert current_result_value == expected_result_value, \
+                f"Expected result to be {expected_result_value}, but got {current_result_value} instead."
